@@ -1,0 +1,2 @@
+php flag display_errors ON
+php value error_reporting -1
