@@ -1,0 +1,7 @@
+mysql> select Pupils.Name, Marks.Mark from Marks join Pupils on Marks.PupilID = Pupils.PupilID;
+
+select Pupils.Name, Subjects.SubjectName, Marks.Mark from Marks join Pupils on Marks.PupilID = Pupils.PupilID join Subjects on Marks.SubjectID = Subjects.SubjectID;
+
+select Pupils.Name, Subjects.SubjectName, Marks.Mark from Marks right join Pupils on Marks.PupilID = Pupils.PupilID left join Subjects on Marks.SubjectID = Subjects.SubjectID;
+
+
