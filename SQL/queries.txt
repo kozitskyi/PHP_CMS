@@ -1,7 +1,48 @@
-mysql> select Pupils.Name, Marks.Mark from Marks join Pupils on Marks.PupilID = Pupils.PupilID;
+Вивести всех учеников и их все оценки
+select Pupils.PupilName, Marks.Mark from Marks join Pupils on Marks.PupilID = Pupils.PupilID;
 
-select Pupils.Name, Subjects.SubjectName, Marks.Mark from Marks join Pupils on Marks.PupilID = Pupils.PupilID join Subjects on Marks.SubjectID = Subjects.SubjectID;
 
-select Pupils.Name, Subjects.SubjectName, Marks.Mark from Marks right join Pupils on Marks.PupilID = Pupils.PupilID left join Subjects on Marks.SubjectID = Subjects.SubjectID;
+Вибрать Учеников которие имеют оценки, их оценки, по какому предмету, кто поставил
+select Pupils.PupilName, Subjects.SubjectName, Marks.Mark, Teachers.TeacherName from Marks join Pupils on Marks.PupilID = Pupils.PupilID join Subjects on Marks.SubjectID = Subjects.SubjectID join Teachers on Marks.TeacherID = Teachers.TeacherID;
+
+
+Вивести ученикос и их стреднии бали в общем за обучение
+select Pupils.PupilName,round(sum(Marks.Mark)/count(Marks.Mark)) from Marks join Pupils on Marks.PupilID = Pupils.PupilID   group by Pupils.PupilName;
+или
+select Pupils.PupilName,round(avg(Marks.Mark)) from Marks join Pupils on Marks.PupilID = Pupils.PupilID group by Pupils.PupilName 
+
+
+Вивести ВСЕХ учеников, оценки, по какому предмету
+select Pupils.PupilName, Subjects.SubjectName, Marks.Mark from Marks right join Pupils on Marks.PupilID = Pupils.PupilID left join Subjects on Marks.SubjectID = Subjects.SubjectID;
+
+Вивести ученика, максимальную оценку из всех преметов сравнивая каждого кто имеет оценки
+select Pupils.PupilName,MAX(Marks.Mark) as max from Marks join Pupils on Marks.PupilID = Pupils.PupilID   group by Pupils.PupilName;
+
+Вивести всех учеников, предмети. их максимальную оценку по предмету
+select Pupils.PupilName, Subjects.SubjectName, MAX(Marks.Mark) as max from Marks join Pupils on Marks.PupilID = Pupils.PupilID join Subjects on Marks.SubjectID = Subjects.SubjectID group by Subjects.SubjectName, Pupils.PupilName;
+
+Вивести всех учеников, предмети, их среднюю оценку по предмету
+select Pupils.PupilName, Subjects.SubjectName, round(sum(Marks.Mark)/count(Marks.Mark)) as middle from Marks join Pupils on Marks.PupilID = Pupils.PupilID join Subjects on Marks.SubjectID = Subjects.SubjectID group by Subjects.SubjectName, Pupils.PupilName;
+
+Вивести всех учеников, предмети, у кого средняя оценка по предмету меньше 9
+select Pupils.PupilName, Subjects.SubjectName, round(sum(Marks.Mark)/count(Marks.Mark))  as middle from Marks join Pupils on Marks.PupilID = Pupils.PupilID join Subjects on Marks.SubjectID = Subjects.SubjectID where Marks.Mark < 9  group by Subjects.SubjectName, Pupils.PupilName;
+
+Вибрать учеников в определенном промежутку дати рождения и их дату рождения
+select Pupils.PupilName, Pupils.DayBirth from Pupils  where Pupils.DayBirth between '1999-01-01' and '2012-01-01';
+
+Вивод учеников и в каком классе они учатся
+select Pupils.PupilName, Classes.ClassNumber, Classes.ClassLetter from Pupils join Classes on Pupils.ClassID = Classes.ClassID;
+
+Вивести учеников, в каком классе они учатся, их классного руководителя
+select Pupils.PupilName, Classes.ClassNumber, Classes.ClassLetter, Teachers.TeacherName from Pupils join Classes on Pupils.ClassID = Classes.ClassID join Teachers on Teachers.TeacherID = Classes.TeacherID;
+
+Вивести учеников, в каком классе они учатся, их классного руководителя, какой класс за ними закреплен
+select Pupils.PupilName, Classes.ClassNumber, Classes.ClassLetter, Teachers.TeacherName, ClassRooms.ClassRoomNumber  from Pupils  join Classes on Pupils.ClassID = Classes.ClassID  join Teachers on Teachers.TeacherID = Classes.TeacherID left  join ClassRooms on ClassRooms.ClassRoomID = Classes.ClassRoomID;
+
+
+
+
+
+
 
 
